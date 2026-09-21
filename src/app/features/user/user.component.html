@@ -1,0 +1,145 @@
+<div class="page-container">
+  <header class="header">
+    <h1 class="title">Meu Perfil</h1>
+    <button class="btn-edit" (click)="toggleEdicao()">
+      <i class="bi" [ngClass]="editando ? 'bi-x-lg' : 'bi-pencil-fill'"></i>
+      {{ editando ? 'Cancelar' : 'Editar' }}
+    </button>
+  </header>
+
+  <!-- Cartão de Perfil -->
+  <div class="profile-card">
+    <div class="avatar-box">
+      <i class="bi bi-person-fill"></i>
+    </div>
+    
+    <div class="user-identity">
+      <h2 class="user-name" *ngIf="!editando">{{ usuario.nome }}</h2>
+      <input 
+        *ngIf="editando" 
+        type="text" 
+        class="form-input text-center" 
+        [(ngModel)]="usuario.nome" 
+        placeholder="Seu Nome"
+      />
+      <span class="role-badge">{{ usuario.funcao }}</span>
+    </div>
+
+    <div class="info-list">
+      <div class="info-item">
+        <i class="bi bi-envelope icon"></i>
+        <div class="info-details">
+          <span class="label">E-mail</span>
+          <p class="value">{{ usuario.email }}</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <i class="bi bi-telephone icon"></i>
+        <div class="info-details">
+          <span class="label">Telefone</span>
+          <p class="value" *ngIf="!editando">{{ usuario.telefone }}</p>
+          <input 
+            *ngIf="editando" 
+            type="text" 
+            class="form-input" 
+            [(ngModel)]="usuario.telefone" 
+            placeholder="Telefone"
+          />
+        </div>
+      </div>
+
+      <div class="info-item">
+        <i class="bi bi-shield-check icon"></i>
+        <div class="info-details">
+          <span class="label">Função</span>
+          <p class="value">{{ usuario.funcao }}</p>
+        </div>
+      </div>
+    </div>
+
+    <button *ngIf="editando" class="btn-primary" (click)="salvarPerfil()">
+      Salvar Alterações
+    </button>
+  </div>
+
+  <!-- Preferências e Notificações -->
+  <div class="section-title">Preferências de Notificação</div>
+  <div class="settings-card">
+    <div class="setting-item">
+      <div class="setting-info">
+        <i class="bi bi-bell icon"></i>
+        <div>
+          <span class="setting-title">Notificações Push</span>
+          <span class="setting-desc">Alertas instantâneos no dispositivo</span>
+        </div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="usuario.notificacoesPush">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="setting-item">
+      <div class="setting-info">
+        <i class="bi bi-envelope-at icon"></i>
+        <div>
+          <span class="setting-title">Notificações por E-mail</span>
+          <span class="setting-desc">Receber resumos diários e alertas críticos</span>
+        </div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="usuario.notificacoesEmail">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Segurança e Outros -->
+  <div class="section-title">Segurança & Suporte</div>
+  <div class="options-card">
+    <button class="option-button" (click)="abrirModalSenha()">
+      <div class="option-left">
+        <i class="bi bi-key icon"></i>
+        <span>Alterar Senha</span>
+      </div>
+      <i class="bi bi-chevron-right arrow"></i>
+    </button>
+
+    <hr class="divider" />
+
+    <a href="mailto:suporte@inova.com.br" class="option-button">
+      <div class="option-left">
+        <i class="bi bi-question-circle icon"></i>
+        <span>Ajuda & Suporte</span>
+      </div>
+      <i class="bi bi-chevron-right arrow"></i>
+    </a>
+  </div>
+
+  <!-- Botão Sair da Conta -->
+  <button class="btn-logout" (click)="sair()">
+    <i class="bi bi-box-arrow-right"></i> Sair da Conta
+  </button>
+
+  <!-- Modal Alterar Senha -->
+  <div class="modal-backdrop" *ngIf="modalSenhaAberto">
+    <div class="modal-card">
+      <h3>Alterar Senha</h3>
+      <div class="form-group">
+        <label>Senha Atual</label>
+        <input type="password" class="form-input" [(ngModel)]="senhaAtual" />
+      </div>
+      <div class="form-group">
+        <label>Nova Senha</label>
+        <input type="password" class="form-input" [(ngModel)]="novaSenha" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="fecharModalSenha()">Cancelar</button>
+        <button class="btn-primary" (click)="alterarSenha()">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>

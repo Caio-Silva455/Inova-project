@@ -1,0 +1,92 @@
+.tela-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  padding: 1rem;
+}
+
+.cartao-auth {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 360px;
+}
+
+.cartao-auth h1 {
+  margin: 0;
+  color: #2563eb;
+}
+
+.subtitulo {
+  color: #6b7280;
+  margin-top: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.cartao-auth label {
+  display: block;
+  font-size: 0.85rem;
+  color: #374151;
+  margin-bottom: 1rem;
+}
+
+.cartao-auth input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.cartao-auth button {
+  width: 100%;
+  padding: 0.7rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cartao-auth button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.alerta-erro {
+  background: #fef2f2;
+  color: #991b1b;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.alerta-sucesso {
+  background: #f0fdf4;
+  color: #166534;
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.link-secundario {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+
+.link-secundario a {
+  color: #2563eb;
+}

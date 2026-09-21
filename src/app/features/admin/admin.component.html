@@ -1,0 +1,55 @@
+<div class="pagina">
+  <h1>Painel do administrador</h1>
+
+  @if (estatisticas) {
+    <div class="grid-cards">
+      <div class="card">
+        <span class="numero">{{ estatisticas.totalIdosos }}</span>
+        <span class="rotulo">Idosos monitorados</span>
+      </div>
+      <div class="card">
+        <span class="numero">{{ estatisticas.totalCuidadores }}</span>
+        <span class="rotulo">Cuidadores</span>
+      </div>
+      <div class="card destaque">
+        <span class="numero">{{ estatisticas.alertasNaoLidos }}</span>
+        <span class="rotulo">Alertas não lidos</span>
+      </div>
+      <div class="card">
+        <span class="numero">{{ estatisticas.alertasHoje }}</span>
+        <span class="rotulo">Alertas hoje</span>
+      </div>
+    </div>
+  }
+
+  <section class="secao">
+    <h2>Alertas recentes (todo o sistema)</h2>
+
+    @if (carregando) {
+      <p>Carregando...</p>
+    } @else if (alertasRecentes.length === 0) {
+      <p class="vazio">Nenhum alerta registrado ainda.</p>
+    } @else {
+      <table class="tabela">
+        <thead>
+          <tr>
+            <th>Idoso</th>
+            <th>Tipo</th>
+            <th>Severidade</th>
+            <th>Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (alerta of alertasRecentes; track alerta.id) {
+            <tr>
+              <td>{{ alerta.idoso.nome }}</td>
+              <td>{{ alerta.tipo }}</td>
+              <td>{{ alerta.severidade }}</td>
+              <td>{{ alerta.createdAt | date: 'dd/MM HH:mm' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+  </section>
+</div>

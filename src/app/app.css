@@ -1,0 +1,15 @@
+.mobile-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #f8fafc;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex: 1;
+  padding-bottom: 74px;
+}

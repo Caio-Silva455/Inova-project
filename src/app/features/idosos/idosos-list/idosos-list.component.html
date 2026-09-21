@@ -1,0 +1,52 @@
+<div class="page-container">
+  <!-- Cabeçalho da Página -->
+  <header class="header">
+    <h1 class="title">Idosos</h1>
+    <a routerLink="/idosos/novo" class="btn-primary">
+      <i class="bi bi-plus-lg"></i> Novo idoso
+    </a>
+  </header>
+
+  <!-- 1. Estado de Carregando -->
+  <div *ngIf="carregando" class="state-card">
+    <p>Carregando idosos...</p>
+  </div>
+
+  <!-- 2. Estado Vazio (Nenhum idoso encontrado) -->
+  <div *ngIf="!carregando && idosos.length === 0" class="state-card empty">
+    <i class="bi bi-person-x icon-empty"></i>
+    <p>Nenhum idoso cadastrado ainda.</p>
+  </div>
+
+  <!-- 3. Lista de Idosos (Layout do Figma) -->
+  <div *ngIf="!carregando && idosos.length > 0" class="cards-list">
+    <div class="idoso-card" *ngFor="let idoso of idosos">
+      <div class="card-top">
+        <div class="avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="idoso-info">
+          <h3>{{ idoso.nome }}</h3>
+          <span class="status-online">
+            <i class="bi bi-circle-fill dot"></i> Monitoramento Ativo
+          </span>
+        </div>
+      </div>
+
+      <div class="card-details">
+        <div class="detail-item">
+          <i class="bi bi-battery-charging"></i>
+          <span>Bateria 85%</span>
+        </div>
+        <div class="detail-item">
+          <i class="bi bi-wifi"></i>
+          <span>Sinal Excelente</span>
+        </div>
+      </div>
+
+      <a [routerLink]="['/idosos', idoso.id]" class="btn-secondary">
+        Ver detalhes
+      </a>
+    </div>
+  </div>
+</div>

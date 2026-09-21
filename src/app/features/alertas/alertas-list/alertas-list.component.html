@@ -1,0 +1,96 @@
+<div class="page-container">
+  <!-- Cabeçalho -->
+  <header class="header">
+    <div>
+      <h1 class="title">Alertas</h1>
+      <p class="subtitle">Notificações do sistema de monitorização</p>
+    </div>
+    <button 
+      class="btn-read-all" 
+      (click)="marcarTodosComoLidos()"
+      title="Marcar todos como lidos"
+    >
+      <i class="bi bi-check2-all"></i>
+    </button>
+  </header>
+
+  <!-- Chips de Filtro -->
+  <div class="filter-chips">
+    <button 
+      class="chip" 
+      [class.active]="filtroAtivo === 'todos'" 
+      (click)="aplicarFiltro('todos')"
+    >
+      Todos ({{ alertas.length }})
+    </button>
+    <button 
+      class="chip" 
+      [class.active]="filtroAtivo === 'nao-lidos'" 
+      (click)="aplicarFiltro('nao-lidos')"
+    >
+      Não lidos
+    </button>
+    <button 
+      class="chip danger" 
+      [class.active]="filtroAtivo === 'criticos'" 
+      (click)="aplicarFiltro('criticos')"
+    >
+      Críticos
+    </button>
+  </div>
+
+  <!-- Estado de Carregamento -->
+  <div *ngIf="carregando" class="state-card">
+    <p>A carregar alertas...</p>
+  </div>
+
+  <!-- Estado Vazio -->
+  <div *ngIf="!carregando && alertasFiltrados.length === 0" class="state-card empty">
+    <i class="bi bi-bell-slash icon-empty"></i>
+    <p>Nenhum alerta encontrado para este filtro.</p>
+  </div>
+
+  <!-- Lista de Alertas -->
+  <div *ngIf="!carregando && alertasFiltrados.length > 0" class="alerts-list">
+    <div 
+      class="alert-card" 
+      *ngFor="let alerta of alertasFiltrados"
+      [class.unread]="!alerta.lido"
+      [class.critical]="alerta.gravidade === 'alta'"
+      [routerLink]="['/alertas', alerta.idosoId, alerta.id]"
+    >
+      <div class="alert-icon" [ngClass]="alerta.tipo">
+        <i class="bi" [ngClass]="{
+          'bi-exclamation-triangle-fill': alerta.tipo === 'queda' || alerta.tipo === 'sos',
+          'bi-battery-charging': alerta.tipo === 'bateria',
+          'bi-heart-pulse-fill': alerta.tipo === 'batimento'
+        }"></i>
+      </div>
+
+      <div class="alert-content">
+        <div class="alert-header">
+          <div class="user-info">
+            <h3 class="name">{{ alerta.idosoNome }}</h3>
+            <span class="badge-severity" [ngClass]="alerta.gravidade">
+              {{ alerta.gravidade === 'alta' ? 'Crítico' : 'Aviso' }}
+            </span>
+          </div>
+          <span class="time">{{ alerta.dataHora }}</span>
+        </div>
+
+        <p class="message">{{ alerta.mensagem }}</p>
+
+        <div class="alert-footer">
+          <span class="action-link">Ver detalhes <i class="bi bi-chevron-right"></i></span>
+          <button 
+            *ngIf="!alerta.lido" 
+            class="btn-mark-read" 
+            (click)="marcarComoLido(alerta, $event)"
+          >
+            <i class="bi bi-check-circle"></i> Marcar como lido
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

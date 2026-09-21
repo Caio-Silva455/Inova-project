@@ -1,0 +1,68 @@
+.pagina {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card.destaque {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.numero {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.rotulo {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.secao {
+  margin-bottom: 2rem;
+}
+
+.vazio {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tabela th {
+  background: #f9fafb;
+  font-size: 0.85rem;
+  color: #6b7280;
+}

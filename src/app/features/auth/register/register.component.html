@@ -1,0 +1,36 @@
+<div class="tela-auth">
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="cartao-auth">
+    <h1>Criar conta</h1>
+    <p class="subtitulo">Cadastro de cuidador</p>
+
+    @if (erro) {
+      <div class="alerta-erro">{{ erro }}</div>
+    }
+    @if (sucesso) {
+      <div class="alerta-sucesso">Conta criada! Redirecionando para o login...</div>
+    }
+
+    <label>
+      Nome
+      <input type="text" formControlName="nome" placeholder="Seu nome" />
+    </label>
+
+    <label>
+      Email
+      <input type="email" formControlName="email" placeholder="seu@email.com" />
+    </label>
+
+    <label>
+      Senha
+      <input type="password" formControlName="senha" placeholder="mínimo 6 caracteres" />
+    </label>
+
+    <button type="submit" [disabled]="form.invalid || carregando">
+      {{ carregando ? 'Criando...' : 'Criar conta' }}
+    </button>
+
+    <p class="link-secundario">
+      Já tem conta? <a routerLink="/login">Entrar</a>
+    </p>
+  </form>
+</div>

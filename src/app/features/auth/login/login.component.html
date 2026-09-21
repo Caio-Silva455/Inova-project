@@ -1,0 +1,28 @@
+<div class="tela-auth">
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="cartao-auth">
+    <h1>Inova</h1>
+    <p class="subtitulo">Monitoramento de idosos</p>
+
+    @if (erro) {
+      <div class="alerta-erro">{{ erro }}</div>
+    }
+
+    <label>
+      Email
+      <input type="email" formControlName="email" placeholder="seu@email.com" />
+    </label>
+
+    <label>
+      Senha
+      <input type="password" formControlName="senha" placeholder="••••••••" />
+    </label>
+
+    <button type="submit" [disabled]="form.invalid || carregando">
+      {{ carregando ? 'Entrando...' : 'Entrar' }}
+    </button>
+
+    <p class="link-secundario">
+      Não tem conta? <a routerLink="/registrar">Cadastre-se</a>
+    </p>
+  </form>
+</div>

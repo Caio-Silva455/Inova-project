@@ -1,0 +1,24 @@
+<div class="pagina">
+  <a [routerLink]="['/alertas', idosoId]" class="voltar">← Voltar</a>
+
+  @if (carregando) {
+    <p>Carregando...</p>
+  } @else if (alerta) {
+    <div class="cartao">
+      <h1>{{ alerta.tipo }}</h1>
+      <p><strong>Severidade:</strong> {{ alerta.severidade }}</p>
+      <p><strong>Data:</strong> {{ (alerta.createdAt || alerta.timestamp) | date: 'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Status:</strong> {{ alerta.lido ? 'Lido' : 'Não lido' }}</p>
+
+      @if (alerta.dados) {
+        <pre class="dados-brutos">{{ alerta.dados | json }}</pre>
+      }
+
+      @if (!alerta.lido) {
+        <button type="button" (click)="marcarComoLido()">Marcar como lido</button>
+      }
+    </div>
+  } @else {
+    <p class="vazio">Alerta não encontrado.</p>
+  }
+</div>

@@ -1,0 +1,107 @@
+<div class="page-container" *ngIf="!carregando && idoso">
+  <!-- Voltar -->
+  <a routerLink="/idosos" class="btn-back">
+    <i class="bi bi-arrow-left"></i> Voltar para idosos
+  </a>
+
+  <!-- Header Card com Perfil -->
+  <div class="profile-card">
+    <div class="avatar-box">
+      <i class="bi bi-person-fill"></i>
+    </div>
+    <h2 class="name">{{ idoso.nome }}</h2>
+    <span class="status-badge">
+      <span class="dot"></span> {{ idoso.status }}
+    </span>
+  </div>
+
+  <!-- Cards de Métricas e Sinais Vitais -->
+  <div class="section-title">Sinais Vitais & Status</div>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-icon heart">
+        <i class="bi bi-heart-pulse-fill"></i>
+      </div>
+      <div class="metric-info">
+        <span class="label">Batimentos</span>
+        <span class="value">{{ idoso.batimentos }} <small>BPM</small></span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon battery">
+        <i class="bi bi-battery-charging"></i>
+      </div>
+      <div class="metric-info">
+        <span class="label">Bateria Wearable</span>
+        <span class="value">{{ idoso.bateria }}%</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon temp">
+        <i class="bi bi-thermometer-half"></i>
+      </div>
+      <div class="metric-info">
+        <span class="label">Temperatura</span>
+        <span class="value">{{ idoso.temperatura }} °C</span>
+      </div>
+    </div>
+
+    <div class="metric-card">
+      <div class="metric-icon info">
+        <i class="bi bi-calendar3"></i>
+      </div>
+      <div class="metric-info">
+        <span class="label">Idade</span>
+        <span class="value">{{ idoso.idade }} anos</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informações Pessoais & Contato -->
+  <div class="section-title">Informações de Contato</div>
+  <div class="info-card">
+    <div class="info-item">
+      <i class="bi bi-geo-alt-fill icon"></i>
+      <div>
+        <span class="info-label">Endereço</span>
+        <p class="info-value">{{ idoso.endereco }}</p>
+      </div>
+    </div>
+    <hr class="divider" />
+    <div class="info-item">
+      <i class="bi bi-person-badge-fill icon"></i>
+      <div>
+        <span class="info-label">Responsável / Cuidador</span>
+        <p class="info-value">{{ idoso.responsavelNome }} ({{ idoso.responsavelTelefone }})</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alertas Recentes -->
+  <div class="section-title">Alertas Recentes</div>
+  <div class="alerts-container">
+    <div *ngIf="idoso.alertasRecentes.length === 0" class="empty-alerts">
+      Nenhum alerta recente registrado.
+    </div>
+
+    <div 
+      class="alert-item" 
+      *ngFor="let alerta of idoso.alertasRecentes"
+    >
+      <div class="alert-icon-wrapper" [ngClass]="alerta.tipo">
+        <i class="bi" [ngClass]="{
+          'bi-exclamation-triangle-fill': alerta.tipo === 'queda',
+          'bi-battery-charging': alerta.tipo === 'bateria'
+        }"></i>
+      </div>
+      <div class="alert-details">
+        <div class="alert-top">
+          <span class="alert-msg">{{ alerta.mensagem }}</span>
+          <span class="alert-time">{{ alerta.dataHora }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

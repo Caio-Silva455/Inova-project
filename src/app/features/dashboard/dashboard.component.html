@@ -1,0 +1,126 @@
+<div class="page-container">
+  <!-- Cabeçalho Principal -->
+  <header class="header-container">
+    <div class="user-welcome">
+      <span class="badge-status">
+        <span class="pulse-dot"></span> CUIDADO ATIVO
+      </span>
+      <h1 class="welcome-title">Olá, {{ nomeUsuario }}</h1>
+    </div>
+    <a routerLink="/idosos/novo" class="btn-primary-add">
+      <i class="bi bi-plus-lg"></i>
+      <span>Novo Idoso</span>
+    </a>
+  </header>
+
+  <!-- Cartões de Métricas (KPIs) -->
+  <div class="kpi-grid">
+    <div class="kpi-card blue">
+      <div class="kpi-icon-wrapper">
+        <i class="bi bi-people-fill"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ resumo.totalIdosos }}</span>
+        <span class="kpi-label">Idosos Cadastrados</span>
+      </div>
+    </div>
+
+    <div class="kpi-card red" [class.has-alerts]="resumo.emAlerta > 0">
+      <div class="kpi-icon-wrapper">
+        <i class="bi bi-bell-fill"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ resumo.emAlerta }}</span>
+        <span class="kpi-label">Alertas Ativos</span>
+      </div>
+    </div>
+
+    <div class="kpi-card amber">
+      <div class="kpi-icon-wrapper">
+        <i class="bi bi-battery-charging"></i>
+      </div>
+      <div class="kpi-content">
+        <span class="kpi-value">{{ resumo.bateriaBaixa }}</span>
+        <span class="kpi-label">Bateria Baixa</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Secção de Alertas Recentes -->
+  <div class="section-header">
+    <h2>Alertas recentes</h2>
+  </div>
+
+  <div class="status-banner success" *ngIf="resumo.emAlerta === 0">
+    <i class="bi bi-shield-check icon-status"></i>
+    <span>Nenhum alerta crítico no momento.</span>
+  </div>
+
+  <!-- Lista de Idosos Monitorizados -->
+  <div class="section-header">
+    <h2>Idosos monitorizados</h2>
+    <a routerLink="/idosos" class="see-all">Ver todos</a>
+  </div>
+
+  <div class="idosos-grid">
+    <div class="idoso-card" *ngFor="let idoso of idosos">
+      <div class="idoso-header">
+        <div class="avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="idoso-info">
+          <h3>{{ idoso.nome }}</h3>
+          <span class="status-badge">
+            <span class="dot"></span> {{ $any(idoso).status || 'Monitoramento Ativo' }}
+          </span>
+        </div>
+        <!-- Botão de Eliminar -->
+        <button 
+          class="btn-delete-icon" 
+          (click)="abrirModalEliminar(idoso, $event)"
+          title="Eliminar idoso"
+        >
+          <i class="bi bi-trash3"></i>
+        </button>
+      </div>
+
+      <div class="telemetry-bar">
+        <div class="telemetry-item" [class.warning]="($any(idoso).bateria ?? 100) <= 20">
+          <i class="bi bi-battery-charging"></i>
+          <span>Bateria {{ $any(idoso).bateria ?? 85 }}%</span>
+        </div>
+        <div class="telemetry-item">
+          <i class="bi bi-wifi"></i>
+          <span>Sinal {{ $any(idoso).sinal || 'Excelente' }}</span>
+        </div>
+      </div>
+
+      <a [routerLink]="['/idosos', idoso.id]" class="btn-detail">
+        Ver detalhes <i class="bi bi-chevron-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação de Eliminação -->
+  <div class="modal-backdrop" *ngIf="exibirModalEliminar" (click)="fecharModalEliminar()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-icon-danger">
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+      
+      <h3 class="modal-title">Eliminar Cadastro?</h3>
+      <p class="modal-description">
+        Tem a certeza de que deseja eliminar <strong>{{ idosoParaEliminar?.nome }}</strong>? Esta ação não pode ser desfeita.
+      </p>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="fecharModalEliminar()">
+          Cancelar
+        </button>
+        <button class="btn-confirm-delete" (click)="confirmarEliminacao()">
+          Sim, eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

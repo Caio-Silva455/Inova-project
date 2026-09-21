@@ -1,0 +1,28 @@
+<div class="pagina">
+  <h1>{{ modoEdicao ? 'Editar idoso' : 'Novo idoso' }}</h1>
+
+  @if (erro) {
+    <div class="alerta-erro">{{ erro }}</div>
+  }
+
+  <form [formGroup]="form" (ngSubmit)="enviar()" class="formulario">
+    <label>
+      Nome
+      <input type="text" formControlName="nome" placeholder="Nome completo" />
+    </label>
+
+    <label>
+      Data de nascimento
+      <input type="date" formControlName="dataNascimento" />
+    </label>
+
+    <label>
+      Endereço
+      <input type="text" formControlName="endereco" placeholder="Endereço" />
+    </label>
+
+    <button type="submit" [disabled]="form.invalid || carregando">
+      {{ carregando ? 'Salvando...' : 'Salvar' }}
+    </button>
+  </form>
+</div>
